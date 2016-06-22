@@ -12,6 +12,8 @@
 		704E90B31D186A980031DE78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 704E90B11D186A980031DE78 /* Main.storyboard */; };
 		704E90B51D186A980031DE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 704E90B41D186A980031DE78 /* Assets.xcassets */; };
 		704E90B81D186A980031DE78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 704E90B61D186A980031DE78 /* LaunchScreen.storyboard */; };
+		704E90C41D187ADC0031DE78 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704E90C31D187ADC0031DE78 /* Color.swift */; };
+		704E90C61D187B750031DE78 /* Setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704E90C51D187B750031DE78 /* Setup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		704E90B41D186A980031DE78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		704E90B71D186A980031DE78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		704E90B91D186A980031DE78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		704E90C31D187ADC0031DE78 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		704E90C51D187B750031DE78 /* Setup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,7 @@
 				704E90BF1D186AA90031DE78 /* App Global */,
 				704E90C01D186AC30031DE78 /* Controller */,
 				704E90C11D186B0F0031DE78 /* View */,
+				704E90C21D187AAB0031DE78 /* Utility */,
 			);
 			path = QuilloGram;
 			sourceTree = "<group>";
@@ -86,6 +91,15 @@
 				704E90B61D186A980031DE78 /* LaunchScreen.storyboard */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		704E90C21D187AAB0031DE78 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				704E90C31D187ADC0031DE78 /* Color.swift */,
+				704E90C51D187B750031DE78 /* Setup.swift */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +175,8 @@
 			files = (
 				704E90B01D186A980031DE78 /* ImageViewController.swift in Sources */,
 				704E90AE1D186A980031DE78 /* AppDelegate.swift in Sources */,
+				704E90C41D187ADC0031DE78 /* Color.swift in Sources */,
+				704E90C61D187B750031DE78 /* Setup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +328,7 @@
 				704E90BE1D186A980031DE78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

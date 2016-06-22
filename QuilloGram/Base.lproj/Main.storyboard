@@ -8,7 +8,7 @@
         <!--Image View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ImageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageViewController" id="BYZ-38-t0r" customClass="ImageViewController" customModule="QuilloGram" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,13 +16,39 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="ImageViewController">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="efS-cN-tDr">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="efS-cN-tDr" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="Iu2-sK-bia"/>
+                            <constraint firstItem="efS-cN-tDr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="q95-Ti-Qy4"/>
+                            <constraint firstItem="efS-cN-tDr" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="uNa-ce-nen"/>
+                            <constraint firstItem="efS-cN-tDr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="uR8-sq-6Z7"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="imageView" destination="efS-cN-tDr" id="1Wd-CE-YAg"/>
+                        </connections>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="cmi-SA-Zyq"/>
+                        <barButtonItem systemItem="add" id="Joi-j7-kWQ">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="BYZ-38-t0r" id="vVD-EQ-9hC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="5mL-GD-KRl"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="WrC-UR-TeD"/>
+                    <connections>
+                        <outlet property="imageView" destination="efS-cN-tDr" id="Sba-Pq-bXp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1087" y="337"/>
+            <point key="canvasLocation" x="1115" y="-355"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4ph-EJ-Lfz">
