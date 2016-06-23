@@ -43,5 +43,13 @@ class Filters {
     
     class func chrome(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectChrome", image: image, completion: completion)
-    }  
+    }
+    class func blur(image: UIImage, completion: FiltersCompletion) {
+        self.filter("CICircularWrap", image: image, completion: completion)
+    }
+    class func skew(image: UIImage, completion: FiltersCompletion) {
+        self.filter("CIPerspectiveTransform", image: image, completion: completion)
+    }
 }
+
+

@@ -13,6 +13,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet weak var imageView: UIImageView!
     
     lazy var imagePicker = UIImagePickerController()
+
     
     func setup() {
         self.navigationItem.title = "Quillogram"
@@ -69,6 +70,60 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     @IBAction func editButtonPressed(sender: AnyObject) {
+        print("Edit Button pressed")
+        
+        func presentActionSheet() {
+            let actionSheet = UIAlertController(title: "Choose Filter", message: "Please select a filter to apply.", preferredStyle: .ActionSheet)
+            let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .Default) { (action) in
+                guard let image = self.imageView.image else { return }
+                
+                Filters.blackAndWhite(image) { (theImage) in
+                    self.imageView.image = theImage
+                }
+            }
+            let vintageAction = UIAlertAction(title: "Vintage", style: .Default) { (action) in
+                guard let image = self.imageView.image else { return }
+                
+                Filters.vintage(image) { (theImage) in
+                    self.imageView.image = theImage
+                }
+            }
+            let chromeAction = UIAlertAction(title: "Chrome", style: .Default) { (action) in
+                guard let image = self.imageView.image else { return }
+                
+                Filters.chrome(image) { (theImage) in
+                    self.imageView.image = theImage
+                }
+            }
+            let blurAction = UIAlertAction(title: "Circle", style: .Default) { (action) in
+                guard let image = self.imageView.image else { return }
+                
+                Filters.blur(image) { (theImage) in
+                    self.imageView.image = theImage
+                }
+            }
+            let skewAction = UIAlertAction(title: "Skew", style: .Default) { (action) in
+                guard let image = self.imageView.image else { return }
+                
+                Filters.skew(image) { (theImage) in
+                    self.imageView.image = theImage
+                }
+
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            
+            actionSheet.addAction(blackAndWhiteAction)
+            actionSheet.addAction(vintageAction)
+            actionSheet.addAction(chromeAction)
+            actionSheet.addAction(blurAction)
+            actionSheet.addAction(skewAction)
+
+            actionSheet.addAction(cancelAction)
+            
+            self.presentViewController(actionSheet, animated: true, completion: nil)
+        }
+        
+        presentActionSheet()
     }
     
     
