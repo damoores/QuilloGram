@@ -60,17 +60,25 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBAction func saveButtonPressed(sender: AnyObject) {
         
         guard let image = self.imageView.image else { return }
-        print("save button pressed")
         API.shared.write(Post(image: image)) { (success) in
             if success {
-                print("Success!!")
-                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                
+                UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil, nil)
             }
         }
     }
     
+//    func saveSuccess(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<Void>) {
+//        if error == nil {
+//        let alert = UIAlertController(title: "Success!", message: "Image saved to photo library", preferredStyle: .Alert)
+//        let OKActtion = UIAlertAction(title: "OK", style: .Default) { (action) in
+//            self.dismissViewControllerAnimated(true, completion: nil)
+//        }
+//        alert.addAction(OKActtion)
+//        self.presentViewController(alert, animated: true, completion: nil)
+//    }
+//    }
     @IBAction func editButtonPressed(sender: AnyObject) {
-        print("Edit Button pressed")
         
         func presentActionSheet() {
             let actionSheet = UIAlertController(title: "Choose Filter", message: "Please select a filter to apply.", preferredStyle: .ActionSheet)
@@ -126,8 +134,6 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         presentActionSheet()
     }
     
-    
-    
     //MARK: UIImagePickerController Delegate
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
@@ -139,7 +145,6 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    
     @IBAction func addButtonPressed(sender: AnyObject) {
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
             self.presentActionSheet()
@@ -147,6 +152,5 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
             self.presentImagePicker(.PhotoLibrary)
         }
     }
-
 }
 
