@@ -19,13 +19,11 @@ class ImageCollectionViewCell: UICollectionViewCell
         }
     }
     
-    class func identifier() -> String
-    {
+    class func identifier() -> String{
         return "ImageCollectionViewCell"
     }
     
-    override func prepareForReuse()
-    {
+    override func prepareForReuse() {
         super.prepareForReuse()
         self.imageView.image = nil
     }

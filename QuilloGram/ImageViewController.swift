@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, Setup {
+class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FiltersPreviewViewControllerDelegate, Setup {
 
     @IBOutlet weak var imageView: UIImageView!
     
     lazy var imagePicker = UIImagePickerController()
-
+    var post = Post()
     
     func setup() {
         self.navigationItem.title = "Quillogram"
@@ -57,12 +57,39 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         self.presentViewController(self.imagePicker, animated: true, completion: nil)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == FiltersPreviewViewController.identifier() {
+            guard let filtersPreviewViewController = segue.destinationViewController as? FiltersPreviewViewController else { return }
+            
+            filtersPreviewViewController.delegate = self
+            filtersPreviewViewController.post = self.post
+        }
+    }
+    
+    func didFinishPickingImage(success: Bool, image: UIImage? ) {
+        
+        if success {
+            guard let image = image else { return }
+            self.imageView.image = image
+        }
+        else {
+            
+            print("Failed retrieving image")
+        }
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    
+    
+    
     @IBAction func saveButtonPressed(sender: AnyObject) {
         
         guard let image = self.imageView.image else { return }
-        API.shared.write(Post(image: image)) { (success) in
+        self.post = Post(image: image)
+        API.shared.write(self.post) { (success) in
             if success {
-                
                 UIImageWriteToSavedPhotosAlbum(self.imageView.image!, nil, nil, nil)
             }
         }
@@ -80,59 +107,10 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
 //    }
     @IBAction func editButtonPressed(sender: AnyObject) {
         
-        func presentActionSheet() {
-            let actionSheet = UIAlertController(title: "Choose Filter", message: "Please select a filter to apply.", preferredStyle: .ActionSheet)
-            let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .Default) { (action) in
-                guard let image = self.imageView.image else { return }
-                
-                Filters.blackAndWhite(image) { (theImage) in
-                    self.imageView.image = theImage
-                }
-            }
-            let vintageAction = UIAlertAction(title: "Vintage", style: .Default) { (action) in
-                guard let image = self.imageView.image else { return }
-                
-                Filters.vintage(image) { (theImage) in
-                    self.imageView.image = theImage
-                }
-            }
-            let chromeAction = UIAlertAction(title: "Chrome", style: .Default) { (action) in
-                guard let image = self.imageView.image else { return }
-                
-                Filters.chrome(image) { (theImage) in
-                    self.imageView.image = theImage
-                }
-            }
-            let blurAction = UIAlertAction(title: "Circle", style: .Default) { (action) in
-                guard let image = self.imageView.image else { return }
-                
-                Filters.blur(image) { (theImage) in
-                    self.imageView.image = theImage
-                }
-            }
-            let skewAction = UIAlertAction(title: "Skew", style: .Default) { (action) in
-                guard let image = self.imageView.image else { return }
-                
-                Filters.skew(image) { (theImage) in
-                    self.imageView.image = theImage
-                }
-
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            
-            actionSheet.addAction(blackAndWhiteAction)
-            actionSheet.addAction(vintageAction)
-            actionSheet.addAction(chromeAction)
-            actionSheet.addAction(blurAction)
-            actionSheet.addAction(skewAction)
-
-            actionSheet.addAction(cancelAction)
-            
-            self.presentViewController(actionSheet, animated: true, completion: nil)
-        }
+        guard let image = self.imageView.image else { return }
         
-        presentActionSheet()
-    }
+        self.post = Post(image: image)
+        self.performSegueWithIdentifier(FiltersPreviewViewController.identifier(), sender: nil)    }
     
     //MARK: UIImagePickerController Delegate
     

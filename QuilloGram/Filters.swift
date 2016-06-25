@@ -8,13 +8,22 @@
 
 import UIKit
 
-typealias FiltersCompletion = (theImage: UIImage?) -> ()
+typealias FiltersCompletion = (image: UIImage?) -> ()
 
 class Filters {
     
-    static var original = UIImage()
+    var original = UIImage()
+    private var context = CIContext()
     
-    private class func filter(name: String, image: UIImage, completion: FiltersCompletion) {
+    static let shared = Filters()
+    
+    private init() {
+        let options = [kCIContextWorkingColorSpace : NSNull()]
+        let eAGLContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+        self.context = CIContext(EAGLContext: eAGLContext, options: options)
+    }
+    
+    private func filter(name: String, image: UIImage, completion: FiltersCompletion) {
         NSOperationQueue().addOperationWithBlock {
             guard let filter = CIFilter(name: name) else { fatalError("Spelling error?")}
             
@@ -27,27 +36,31 @@ class Filters {
             guard let outputImage = filter.outputImage else { fatalError("Error, no output image")}
             let cgImage = gPUContext.createCGImage(outputImage, fromRect: outputImage.extent)
             NSOperationQueue.mainQueue().addOperationWithBlock ({
-                completion(theImage: UIImage(CGImage: cgImage))
+                completion(image: UIImage(CGImage: cgImage))
             })
             
         }
     }
     
-    class func vintage(image: UIImage, completion: FiltersCompletion) {
+    func original(image: UIImage, completion: FiltersCompletion) {
+        completion(image: self.original)
+    }
+    
+    func vintage(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectTransfer", image: image, completion: completion)
     }
     
-    class func blackAndWhite(image: UIImage, completion: FiltersCompletion) {
+    func blackAndWhite(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectMono", image: image, completion: completion)
     }
     
-    class func chrome(image: UIImage, completion: FiltersCompletion) {
+    func chrome(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPhotoEffectChrome", image: image, completion: completion)
     }
-    class func blur(image: UIImage, completion: FiltersCompletion) {
+    func blur(image: UIImage, completion: FiltersCompletion) {
         self.filter("CICircularWrap", image: image, completion: completion)
     }
-    class func skew(image: UIImage, completion: FiltersCompletion) {
+    func skew(image: UIImage, completion: FiltersCompletion) {
         self.filter("CIPerspectiveTransform", image: image, completion: completion)
     }
 }
